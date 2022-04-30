@@ -18,7 +18,6 @@ public class Detector : MonoBehaviour, IDetector
     private NavMeshAgent _navMeshAgent;
     private int _currentPoint = 0;
     private bool _isStalkingPlayer = false;
-    private bool _isAttacking = false;
     private EnemyBase _enemy;
     private IHittable _target;
     private float _timerAttack = 0f;
@@ -36,6 +35,7 @@ public class Detector : MonoBehaviour, IDetector
         if (_isStalkingPlayer)
         {
             _navMeshAgent.SetDestination(_player.position);
+            _navMeshAgent.speed = _enemy.Speed;
             if (_navMeshAgent.remainingDistance < DistanceAttack)
             {
                 _timerAttack += Time.deltaTime;
@@ -49,7 +49,11 @@ public class Detector : MonoBehaviour, IDetector
         else
         {
             if (HasReached(_navMeshAgent))
+            {
                 _navMeshAgent.SetDestination(GetNext().position);
+                _navMeshAgent.speed = _enemy.RestingSpeed;
+            }
+                
         }
     }
 
