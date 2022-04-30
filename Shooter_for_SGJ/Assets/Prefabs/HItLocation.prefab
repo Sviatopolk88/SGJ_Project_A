@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2399619969816010301}
   - component: {fileID: 6347875886699813848}
   - component: {fileID: 4704734695269227941}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: HItLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
