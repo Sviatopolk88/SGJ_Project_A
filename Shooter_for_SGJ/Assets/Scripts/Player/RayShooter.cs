@@ -45,7 +45,7 @@ public class RayShooter : MonoBehaviour
                     Ray ray = _camera.ScreenPointToRay(point);
                     RaycastHit hit;
 
-                    if (Physics.Raycast(ray, out hit))
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                     {
                         GameObject hitObject = hit.transform.gameObject;
                         IHittable target = hitObject.GetComponent<IHittable>();

@@ -8,17 +8,31 @@ namespace AssemblyCSharp.Assets.Scripts.Player
     public class PlayerUI : MonoBehaviour
     {
         public bool GameIsOver = false;
-        public float HP = 125f;
-        public float Bullets = 100f;
-        private float _hp;
-        private float _bullets;
+        public int HP = 125;
+        public int Bullets = 100;
+        private int _hp;
+        private int _bullets;
+        private PlayerController _player;
         [SerializeField] private TMP_Text _bulletsCount;
         [SerializeField] private TMP_Text _healthBar;
         [SerializeField] private GameObject _gameOverScreen;
-        public void SetHP(float HP)
+        
+
+        private void OnEnable()
+        {
+            _player = GetComponentInParent<PlayerController>();
+            CheckPlayerStats();
+            _player.OnPlayerHealthValueChangedEvent += SetHP;
+        }
+
+        private void OnDisable()
+        {
+            _player.OnPlayerHealthValueChangedEvent -= SetHP;
+        }
+        public void SetHP(int HP)
         {
 
-            _hp += HP;
+            _hp = HP;
             if (_hp > 0)
             {
                 if (_healthBar != null)
@@ -36,7 +50,7 @@ namespace AssemblyCSharp.Assets.Scripts.Player
             }
         }
 
-        public void SetBullets(float Bullets)
+        public void SetBullets(int Bullets)
         {
             _bullets = Bullets;
             if (_bulletsCount != null)
@@ -63,7 +77,7 @@ namespace AssemblyCSharp.Assets.Scripts.Player
 
         private void Start()
         {
-            CheckPlayerStats();
+            
         }
 
         private void CheckPlayerStats()

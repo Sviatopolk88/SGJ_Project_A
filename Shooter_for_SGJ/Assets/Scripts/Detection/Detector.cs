@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,24 +9,42 @@ public class Detector : MonoBehaviour, IDetector
     public event ObjectDetectedHandler OnGameObjectDetectionReleasedEvent;
 
     public Transform CurrentPoint => _patrolPoints[_currentPoint];
+    public float DistanceAttack = 3f;
+    public float SpeedAttack = 2f;
 
     [SerializeField] private Transform[] _patrolPoints;
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform _player;
 
     private NavMeshAgent _navMeshAgent;
     private int _currentPoint = 0;
-    private bool _flag = false;
+    private bool _isStalkingPlayer = false;
+    private bool _isAttacking = false;
+    private EnemyBase _enemy;
+    private IHittable _target;
+    private float _timerAttack = 0f;
 
     void Start()
     {
         _navMeshAgent = GetComponentInParent<NavMeshAgent>();
+        _enemy = GetComponentInParent<EnemyBase>();
+        _target = _player.GetComponent<IHittable>();
     }
 
     private void Update()
     {
-        if (_flag)
+        
+        if (_isStalkingPlayer)
         {
-            _navMeshAgent.SetDestination(player.position);
+            _navMeshAgent.SetDestination(_player.position);
+            if (_navMeshAgent.remainingDistance < DistanceAttack)
+            {
+                _timerAttack += Time.deltaTime;
+                if (_timerAttack >= SpeedAttack)
+                {
+                    _target.HitObject(_enemy.Damage);
+                    _timerAttack = 0f;
+                }
+            }
         }
         else
         {
@@ -44,15 +63,11 @@ public class Detector : MonoBehaviour, IDetector
 
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
-                    Debug.Log("hasPath: " + agent.hasPath);
                     return true;
                 }
             }
         }
-        else
-        {
-            Debug.Log("pathPending: " + agent.pathPending);
-        }
+
         return false;
     }
     public Transform GetNext()
@@ -62,21 +77,18 @@ public class Detector : MonoBehaviour, IDetector
         return point;
     }
 
-
-
     public void Detect(IDetectableObject detectablePlayer)
     {
+        _isStalkingPlayer = true;
         detectablePlayer.Detected(gameObject);
-        _flag = true;
 
         OnGameObjectDetectedEvent?.Invoke(gameObject, detectablePlayer.gameObject);
     }
 
     public void ReleaseDetection(IDetectableObject detectablePlayer)
     {
+        _isStalkingPlayer = false;
         detectablePlayer.DetectionReleased(gameObject);
-        Debug.Log(_flag);
-        _flag = false;
 
         OnGameObjectDetectionReleasedEvent?.Invoke(gameObject, detectablePlayer.gameObject);
     }
