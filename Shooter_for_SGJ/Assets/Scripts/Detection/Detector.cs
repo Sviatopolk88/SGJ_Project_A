@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class Detector : MonoBehaviour, IDetector
 {
@@ -9,42 +10,45 @@ public class Detector : MonoBehaviour, IDetector
     public event ObjectDetectedHandler OnGameObjectDetectionReleasedEvent;
 
     public Transform CurrentPoint => _patrolPoints[_currentPoint];
+
     public float DistanceAttack = 3f;
     public float SpeedAttack = 2f;
 
     [SerializeField] private Transform[] _patrolPoints;
     [SerializeField] private Transform _player;
+    [SerializeField] private Transform _bulletPrefab;
 
     private NavMeshAgent _navMeshAgent;
     private int _currentPoint = 0;
-    private bool _isStalkingPlayer = false;
+    private bool _isSawPlayer = false;
     private EnemyBase _enemy;
     private IHittable _target;
     private float _timerAttack = 0f;
+    private Type _typeEnemy;
 
     void Start()
     {
         _navMeshAgent = GetComponentInParent<NavMeshAgent>();
         _enemy = GetComponentInParent<EnemyBase>();
         _target = _player.GetComponent<IHittable>();
+        _typeEnemy = _enemy.GetType();
     }
 
     private void Update()
     {
         
-        if (_isStalkingPlayer)
+        if (_isSawPlayer)
         {
-            _navMeshAgent.SetDestination(_player.position);
-            _navMeshAgent.speed = _enemy.Speed;
-            if (_navMeshAgent.remainingDistance < DistanceAttack)
+            switch (_typeEnemy.ToString())
             {
-                _timerAttack += Time.deltaTime;
-                if (_timerAttack >= SpeedAttack)
-                {
-                    _target.HitObject(_enemy.Damage);
-                    _timerAttack = 0f;
-                }
+                case "EnemyBase":
+                    PlayerHarassment();
+                    break;
+                case "EnemyShooting":
+                    EnemyShooting();
+                    break;
             }
+
         }
         else
         {
@@ -54,6 +58,33 @@ public class Detector : MonoBehaviour, IDetector
                 _navMeshAgent.speed = _enemy.RestingSpeed;
             }
                 
+        }
+    }
+
+    private void EnemyShooting()
+    {
+        _navMeshAgent.SetDestination(_player.position);
+        _navMeshAgent.speed = 0.1f;
+        _timerAttack += Time.deltaTime;
+        if (_timerAttack >= SpeedAttack)
+        {
+            Transform bullet = Instantiate(_bulletPrefab, _enemy.transform);
+            _timerAttack = 0f;
+        }
+    }
+
+    private void PlayerHarassment()
+    {
+        _navMeshAgent.SetDestination(_player.position);
+        _navMeshAgent.speed = _enemy.RunSpeed;
+        if (_navMeshAgent.remainingDistance < DistanceAttack)
+        {
+            _timerAttack += Time.deltaTime;
+            if (_timerAttack >= SpeedAttack)
+            {
+                _target.HitObject(_enemy.Damage);
+                _timerAttack = 0f;
+            }
         }
     }
 
@@ -71,7 +102,6 @@ public class Detector : MonoBehaviour, IDetector
                 }
             }
         }
-
         return false;
     }
     public Transform GetNext()
@@ -83,7 +113,7 @@ public class Detector : MonoBehaviour, IDetector
 
     public void Detect(IDetectableObject detectablePlayer)
     {
-        _isStalkingPlayer = true;
+        _isSawPlayer = true;
         detectablePlayer.Detected(gameObject);
 
         OnGameObjectDetectedEvent?.Invoke(gameObject, detectablePlayer.gameObject);
@@ -91,7 +121,7 @@ public class Detector : MonoBehaviour, IDetector
 
     public void ReleaseDetection(IDetectableObject detectablePlayer)
     {
-        _isStalkingPlayer = false;
+        _isSawPlayer = false;
         detectablePlayer.DetectionReleased(gameObject);
 
         OnGameObjectDetectionReleasedEvent?.Invoke(gameObject, detectablePlayer.gameObject);
