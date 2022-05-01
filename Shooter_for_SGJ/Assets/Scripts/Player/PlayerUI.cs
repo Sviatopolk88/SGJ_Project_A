@@ -7,11 +7,13 @@ namespace AssemblyCSharp.Assets.Scripts.Player
 
     public class PlayerUI : MonoBehaviour
     {
+        
         public bool GameIsOver = false;
         public int HP = 125;
         public int Bullets = 100;
         private int _hp;
         private int _bullets;
+        private SpawnManager _spawnManager;
         private PlayerController _player;
         [SerializeField] private TMP_Text _bulletsCount;
         [SerializeField] private TMP_Text _healthBar;
@@ -23,6 +25,7 @@ namespace AssemblyCSharp.Assets.Scripts.Player
             _player = GetComponentInParent<PlayerController>();
             CheckPlayerStats();
             _player.OnPlayerHealthValueChangedEvent += SetHP;
+            _spawnManager = GameObject.Find("SpawnPointsManager").GetComponent<SpawnManager>();
         }
 
         private void OnDisable()
@@ -99,6 +102,16 @@ namespace AssemblyCSharp.Assets.Scripts.Player
         {
             if (_gameOverScreen != null)
             {
+                _spawnManager.Resume = true;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+
+        public void Exit()
+        {
+            if (_gameOverScreen != null)
+            {
+                _spawnManager.Resume = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
