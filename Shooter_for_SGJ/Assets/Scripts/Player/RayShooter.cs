@@ -5,10 +5,11 @@ using UnityEngine;
 public class RayShooter : MonoBehaviour
 {
     public int Damage = 10;
+    public float floatInfrontOfWall;
 
     private PlayerUI _playerUI => transform.GetComponent<PlayerUI>();
 
-    [SerializeField] private Transform _hitLocation;
+    [SerializeField] private Transform _bulletHole;
 
     private Camera _camera;
 
@@ -56,7 +57,7 @@ public class RayShooter : MonoBehaviour
                         }
                         else
                         {
-                            StartCoroutine(HitLocation(hitObject, hit.point)); // Добавить анимацию и префаб попадания в неживую поверхность
+                            Instantiate(_bulletHole, hit.point + hit.normal * floatInfrontOfWall, Quaternion.LookRotation(hit.normal)); // Добавить анимацию и префаб попадания в неживую поверхность
                         }
                     }
                 }
@@ -64,9 +65,14 @@ public class RayShooter : MonoBehaviour
         }
     }
 
+    private void LevelPart(GameObject target)
+    {
+        Instantiate(_bulletHole, target.transform, true);
+    }
+
     private IEnumerator HitLocation(GameObject target, Vector3 pos)
     {
-        Transform hitLocation = Instantiate(_hitLocation, target.transform, true);
+        Transform hitLocation = Instantiate(_bulletHole, target.transform, true);
         hitLocation.position = pos;
 
         yield return new WaitForSeconds(1);
