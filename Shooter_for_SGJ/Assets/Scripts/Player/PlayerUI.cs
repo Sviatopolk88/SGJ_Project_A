@@ -109,11 +109,7 @@ namespace AssemblyCSharp.Assets.Scripts.Player
 
         public void Exit()
         {
-            if (_gameOverScreen != null)
-            {
-                _spawnManager.Resume = false;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
+            Application.Quit();
         }
 
 
