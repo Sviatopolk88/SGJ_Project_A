@@ -14,6 +14,16 @@ public class DialogCheck : MonoBehaviour
 
     private void StartDialog(DIalogComponent dialog)
     {
+        var pistol = FindObjectOfType<Pistol>();
+        var shotgun = FindObjectOfType<Shotgun>();
+        if (pistol != null)
+        {
+            pistol.IsDialog = true;
+        }
+        if (shotgun != null)
+        {
+            shotgun.IsDialog = true;
+        }
        
         transform.GetComponent<PlayerMove>().IsDialog = true;
         transform.GetComponent<MouseLook>().IsDialog = true;

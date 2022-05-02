@@ -55,17 +55,17 @@ public class BossFightAI : MonoBehaviour, IBoss , IHittable
     // Update is called once per frame
     void Update()
     {
-        BossAnimationsCheck();
+        //BossAnimationsCheck();
         
-        if (!isDead && StartFight)
-        {
-            GetHpBar();
-            GetPlayer();
+        //if (!isDead && StartFight)
+        //{
+        //    GetHpBar();
+        //    GetPlayer();
             
            
-           // var playerPos = GameObject.Find("Player").transform.position;
-           // transform.position = Vector3.MoveTowards(transform.position, playerPos, RunSpeed * Time.deltaTime);
-        }
+        //   // var playerPos = GameObject.Find("Player").transform.position;
+        //   // transform.position = Vector3.MoveTowards(transform.position, playerPos, RunSpeed * Time.deltaTime);
+        //}
     }
 
     private void GetHpBar()

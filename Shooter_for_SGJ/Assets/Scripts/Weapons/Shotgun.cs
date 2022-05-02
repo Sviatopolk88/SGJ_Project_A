@@ -4,7 +4,7 @@ public class Shotgun : MonoBehaviour
 {
     [SerializeField] private Transform _pellet;
     private AudioSource _shotSound;
-
+    public bool IsDialog;
     public int NumberOfPellets;
 
     private void Start()
@@ -14,16 +14,15 @@ public class Shotgun : MonoBehaviour
 
     public void Shoot()
     {
-        _shotSound.Play();
-        for (int i = 0; i < NumberOfPellets; i++)
+        if (!IsDialog)
         {
-            var pellet = Instantiate(_pellet);
-            pellet.position = transform.position;
-            pellet.rotation = transform.rotation;
-            
-
-            
-            
+            _shotSound.Play();
+            for (int i = 0; i < NumberOfPellets; i++)
+            {
+                var pellet = Instantiate(_pellet);
+                pellet.position = transform.position;
+                pellet.rotation = transform.rotation;
+            }
         }
     }
 }

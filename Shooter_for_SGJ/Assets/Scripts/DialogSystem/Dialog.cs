@@ -42,7 +42,7 @@ public class Dialog : MonoBehaviour
            
         }
         
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2f);
         if (_index == _sentences.Length - 1)
         {
             FindObjectOfType<PlayerUI>().EndDialog();
