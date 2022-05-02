@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
     public float groundDistance = 0.2f;
     public LayerMask ground;
     public Vector3 drag;
-    public bool IsDialog;
 
     private CharacterController _charController;
     private Vector3 _velocity;
@@ -27,7 +26,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (!IsDialog)
+        if (!DialogCheck.IsDialog)
         {
 
 

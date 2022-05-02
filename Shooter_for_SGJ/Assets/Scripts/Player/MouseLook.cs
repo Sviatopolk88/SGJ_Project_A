@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public bool IsDialog;
     public float sensitivityHor = 9.0f;
     public float sensitivityVert = 9.0f;
 
@@ -13,7 +12,7 @@ public class MouseLook : MonoBehaviour
    
     void Update()
     {
-        if (!IsDialog)
+        if (!DialogCheck.IsDialog)
         {
             transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityHor, 0);
 

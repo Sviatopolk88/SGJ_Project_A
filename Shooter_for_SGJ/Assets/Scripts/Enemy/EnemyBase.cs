@@ -19,7 +19,7 @@ public class EnemyBase : MonoBehaviour, IHittable
     public void HitObject(int damage)
     {
         this.Health -= damage;
-        
+        Debug.Log(this.Health);
         if (isDead)
         {
             if (_audioSource != null)

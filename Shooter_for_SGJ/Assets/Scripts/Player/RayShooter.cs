@@ -12,6 +12,7 @@ public class RayShooter : MonoBehaviour
     [SerializeField] private Transform _bulletHole;
     [SerializeField] private Pistol _pistol;
     [SerializeField] private Shotgun _shotgun;
+    [SerializeField] private Knife _knife;
 
     private Camera _camera;
 
@@ -33,6 +34,9 @@ public class RayShooter : MonoBehaviour
                     break;
                 case "Shotgun":
                     _shotgun.Shoot();
+                    break;
+                case "Knife":
+                    _knife.HitKnife();
                     break;
                 default:
                     Debug.Log("Don't have weapon");

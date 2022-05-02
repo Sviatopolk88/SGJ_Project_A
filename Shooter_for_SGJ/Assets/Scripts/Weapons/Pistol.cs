@@ -9,8 +9,6 @@ public class Pistol : MonoBehaviour
     public bool IsDialog;
     public int _bullets = 99;
 
-    //private PlayerUI _playerUI => transform.GetComponent<PlayerUI>();
-
     [SerializeField] private Transform _bulletHole;
 
     private Camera _camera;
@@ -18,12 +16,11 @@ public class Pistol : MonoBehaviour
     void Start()
     {
         _camera = GetComponentInParent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Shooting()
     {
-        if (!IsDialog)
+        if (!DialogCheck.IsDialog)
         {
             if (_bullets > 0)
             {

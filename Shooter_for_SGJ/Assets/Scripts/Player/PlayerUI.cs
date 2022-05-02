@@ -118,20 +118,9 @@ namespace AssemblyCSharp.Assets.Scripts.Player
         }
         public void EndDialog()
         {
+            DialogCheck.IsDialog = false;
             Cursor.lockState = CursorLockMode.Locked;
-            transform.parent.GetComponent<PlayerMove>().IsDialog = false;
-            transform.parent.GetComponent<MouseLook>().IsDialog = false;
-            var pistol = FindObjectOfType<Pistol>();
-            var shotgun = FindObjectOfType<Shotgun>();
-            if (pistol != null)
-            {
-                pistol.IsDialog = false;
-            }
-            if (shotgun != null)
-            {
-                shotgun.IsDialog = false;
-            }
-            FindObjectOfType<RayShooter>().IsDialog = false;
+
             _dialogPanel.SetActive(false);
             FindObjectOfType<BossDialogSystem>().SittingIdle(false, false);
             //_bossFightPanel.SetActive(true);
