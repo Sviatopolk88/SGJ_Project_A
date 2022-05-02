@@ -18,7 +18,9 @@ namespace AssemblyCSharp.Assets.Scripts.Player
         [SerializeField] private TMP_Text _bulletsCount;
         [SerializeField] private TMP_Text _healthBar;
         [SerializeField] private GameObject _gameOverScreen;
-        
+        [SerializeField] private GameObject _dialogPanel;
+        [SerializeField] private GameObject _bossFightPanel;
+
 
         private void OnEnable()
         {
@@ -26,6 +28,9 @@ namespace AssemblyCSharp.Assets.Scripts.Player
             CheckPlayerStats();
             _player.OnPlayerHealthValueChangedEvent += SetHP;
             _spawnManager = GameObject.Find("SpawnPointsManager").GetComponent<SpawnManager>();
+            _dialogPanel = GameObject.FindWithTag("BossDialog");
+            _bossFightPanel = GameObject.Find("BossFightPanel");
+            _bossFightPanel.SetActive(false);
         }
 
         private void OnDisable()
@@ -111,7 +116,25 @@ namespace AssemblyCSharp.Assets.Scripts.Player
         {
             Application.Quit();
         }
+        public void EndDialog()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            transform.parent.GetComponent<PlayerMove>().IsDialog = false;
+            transform.parent.GetComponent<MouseLook>().IsDialog = false;
+            _dialogPanel.SetActive(false);
+            FindObjectOfType<BossDialogSystem>().SittingIdle(false, false);
+            _bossFightPanel.SetActive(true);
+            FindObjectOfType<BossFightAI>().StartFight = true;
 
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.collider.CompareTag("BossArm"))
+            {
+                SetHP(50);
+            }
+        }
 
     }
 

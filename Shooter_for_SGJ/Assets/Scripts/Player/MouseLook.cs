@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    
+    public bool IsDialog;
     public float sensitivityHor = 9.0f;
     public float sensitivityVert = 9.0f;
 
