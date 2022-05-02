@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 887858508893692786}
   - component: {fileID: 4637485515524563305}
   - component: {fileID: 2154120441144912093}
+  - component: {fileID: 1619936081539032602}
   - component: {fileID: -4428012157823649753}
-  - component: {fileID: 8843440371471134949}
   m_Layer: 7
-  m_Name: Bullet
+  m_Name: Pellet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +97,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1619936081539032602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771395990769957173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4b631fd21aa4f44bfa4fc3e1561ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  Speed: 0.8
+  maxD: 0.2
+  minD: -0.2
 --- !u!54 &-4428012157823649753
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -113,15 +129,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8843440371471134949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771395990769957173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a2cf1ffd4eb7b42b63fd03b31e3e0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

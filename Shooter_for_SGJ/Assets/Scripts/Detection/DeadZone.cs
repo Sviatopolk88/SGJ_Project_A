@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DeadZone : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        IHittable hitObject = other.gameObject.GetComponent<IHittable>();
+        if (hitObject != null)
+        {
+            hitObject.HitObject(1000);
+        }
     }
 }

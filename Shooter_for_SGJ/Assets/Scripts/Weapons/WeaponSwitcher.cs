@@ -3,6 +3,7 @@ using UnityEngine;
 public class WeaponSwitcher : MonoBehaviour
 {
     public int SelectedWeapon = 0;
+    public static string gunName {get; private set;}
     void Start()
     {
         SwitchWeapon();
@@ -54,13 +55,18 @@ public class WeaponSwitcher : MonoBehaviour
     }
 
 
-    void SwitchWeapon()
+    public void SwitchWeapon()
     {
         int i = 0;
         foreach (Transform weapon in transform)
         {
             if (i == SelectedWeapon)
+            {
                 weapon.gameObject.SetActive(true);
+                gunName = weapon.name;
+            }
+                
+
             else
                 weapon.gameObject.SetActive(false);
             i++;
