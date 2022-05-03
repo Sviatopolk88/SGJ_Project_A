@@ -8,7 +8,6 @@ public class RayShooter : MonoBehaviour
     public float floatInfrontOfWall;
     public bool IsDialog;
     private PlayerUI _playerUI => transform.GetComponent<PlayerUI>();
-
     [SerializeField] private Transform _bulletHole;
     [SerializeField] private Pistol _pistol;
     [SerializeField] private Shotgun _shotgun;
@@ -27,6 +26,7 @@ public class RayShooter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            
             switch (WeaponSwitcher.gunName)
             {
                 case "Pistol":

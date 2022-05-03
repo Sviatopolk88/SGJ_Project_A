@@ -10,6 +10,7 @@ public class Detector : MonoBehaviour, IDetector
     public Transform CurrentPoint => _patrolPoints[_currentPoint];
     public float DistanceAttack = 3f;
     public float SpeedAttack = 2f;
+    public bool isAttack;
 
     [SerializeField] private Transform[] _patrolPoints;
     [SerializeField] private Transform _player;
@@ -83,8 +84,13 @@ public class Detector : MonoBehaviour, IDetector
             _timerAttack += Time.deltaTime;
             if (_timerAttack >= SpeedAttack)
             {
+                isAttack = true;
                 _target.HitObject(_enemy.Damage);
                 _timerAttack = 0f;
+            }
+            else
+            {
+                isAttack = false;
             }
         }
     }
@@ -107,6 +113,7 @@ public class Detector : MonoBehaviour, IDetector
     }
     public Transform GetNext()
     {
+
         var point = _patrolPoints[_currentPoint];
         _currentPoint = (_currentPoint + 1) % _patrolPoints.Length;
         return point;

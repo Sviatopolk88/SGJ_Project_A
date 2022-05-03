@@ -11,13 +11,15 @@ public class Dialog : MonoBehaviour
     [SerializeField] private int _index;
     [SerializeField] private float _typeSpeed;
     [SerializeField] private GameObject _dialogPanel;
+    //[SerializeField] private GameObject _pizza;
     // Start is called before the first frame update
     void Start()
     {
         _textMesh = GameObject.Find("DialogField").GetComponent<TextMeshProUGUI>();
         _dialogPanel = GameObject.FindWithTag("BossDialog");
         _dialogPanel.SetActive(false);
-        
+       // _pizza = GameObject.Find("Pizza");
+        //_pizza.SetActive(false);
     }
 
     // Update is called once per frame
@@ -30,6 +32,9 @@ public class Dialog : MonoBehaviour
     {
         _dialogPanel.SetActive(true);
         _textMesh.text = string.Empty;
+        FindObjectOfType<WeaponSwitcher>().SelectPizza();
+        FindObjectOfType<SoundManager>().StopPlayer();
+        FindObjectOfType<SoundManager>().Devil();
         StartCoroutine(Type());
     }
 
@@ -41,11 +46,14 @@ public class Dialog : MonoBehaviour
             yield return new WaitForSeconds(_typeSpeed);
            
         }
-        
+       
+        //_pizza.transform.GetComponent<Animation>().Play();
         yield return new WaitForSeconds(2f);
         if (_index == _sentences.Length - 1)
         {
             FindObjectOfType<PlayerUI>().EndDialog();
+            var pizza = GameObject.Find("pizzabox").gameObject;
+            pizza.SetActive(false);
         }
     }
 

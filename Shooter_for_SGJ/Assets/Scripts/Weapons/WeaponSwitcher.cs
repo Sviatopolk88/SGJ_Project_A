@@ -48,6 +48,10 @@ public class WeaponSwitcher : MonoBehaviour
         {
             SelectedWeapon = 1;
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount >= 3)
+        {
+            SelectedWeapon = 2;
+        }
         if (prevSelectedWeapon != SelectedWeapon)
         {
             SwitchWeapon();
@@ -71,5 +75,16 @@ public class WeaponSwitcher : MonoBehaviour
                 weapon.gameObject.SetActive(false);
             i++;
         }
+    }
+
+    public void SelectPizza()
+    {
+        foreach (Transform weapon in transform)
+        {
+            
+                weapon.gameObject.SetActive(false);
+           
+        }
+        transform.GetChild(3).gameObject.SetActive(true);
     }
 }

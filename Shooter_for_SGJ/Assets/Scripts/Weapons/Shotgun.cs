@@ -9,7 +9,6 @@ public class Shotgun : MonoBehaviour
     private void Start()
     {
         _shotSound = GetComponent<AudioSource>();
-        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Shoot()
