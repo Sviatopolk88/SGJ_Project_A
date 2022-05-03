@@ -7,7 +7,6 @@ public class Pellet : MonoBehaviour
     public float maxD = 0.3f;
     public float minD = -0.3f;
 
-
     private Rigidbody _rigidbody;
     private float _timer = 2f;
     private Vector3 Spread;
@@ -26,12 +25,10 @@ public class Pellet : MonoBehaviour
         {
             transform.Translate(Spread * Speed * Time.deltaTime);
         }
-            
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
         IHittable hitObject = other.gameObject.GetComponent<IHittable>();
         if (hitObject != null)
         {
@@ -43,7 +40,5 @@ public class Pellet : MonoBehaviour
             Debug.Log("Coll");
             Destroy(this.gameObject);
         }
-        
     }
-
 }
