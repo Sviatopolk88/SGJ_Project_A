@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
             _velocity.x /= 1 + drag.x * Time.deltaTime;
             _velocity.y /= 1 + drag.y * Time.deltaTime;
             _velocity.z /= 1 + drag.z * Time.deltaTime;
-
+            
             _charController.Move(_velocity * Time.deltaTime);
         }
     }

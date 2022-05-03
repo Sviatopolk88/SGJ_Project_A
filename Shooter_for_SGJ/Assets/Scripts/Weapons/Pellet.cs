@@ -24,7 +24,7 @@ public class Pellet : MonoBehaviour
             Destroy(this.gameObject);
         else
         {
-            transform.Translate(Spread * Speed);
+            transform.Translate(Spread * Speed * Time.deltaTime);
         }
             
     }

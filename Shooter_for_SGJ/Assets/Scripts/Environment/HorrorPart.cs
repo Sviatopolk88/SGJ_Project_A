@@ -9,16 +9,9 @@ public class HorrorPart : MonoBehaviour
     private GameObject _directionalLightHorror;
     private Camera _camera;
     private GameObject _audioManager;
-    // Start is called before the first frame update
     void Start()
     {
         Initialization();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void StartHorror()

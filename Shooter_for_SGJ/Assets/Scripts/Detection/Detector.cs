@@ -45,12 +45,12 @@ public class Detector : MonoBehaviour, IDetector
                     EnemyShooting();
                     break;
             }
-
         }
         else
         {
             if (HasReached(_navMeshAgent))
             {
+                Debug.Log(_navMeshAgent.transform.name);
                 _navMeshAgent.SetDestination(GetNext().position);
                 _navMeshAgent.speed = _enemy.RestingSpeed;
             }
