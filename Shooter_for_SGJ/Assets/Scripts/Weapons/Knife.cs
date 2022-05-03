@@ -6,8 +6,11 @@ public class Knife : MonoBehaviour
     public Vector3 DistanceAttack = Vector3.one;
     public LayerMask MaskEnemy;
 
+    private Animation animation;
+
     void Start()
     {
+        animation = GetComponent<Animation>();
     }
 
     public void HitKnife()
@@ -15,7 +18,7 @@ public class Knife : MonoBehaviour
         if (!DialogCheck.IsDialog)
         {
             // Анимация
-
+            animation.Play();
 
             // Поиск всех столкновений
             Collider[] Enemies = Physics.OverlapBox(transform.position, DistanceAttack, Quaternion.identity, MaskEnemy);

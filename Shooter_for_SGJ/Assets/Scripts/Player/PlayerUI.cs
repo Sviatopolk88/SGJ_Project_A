@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace AssemblyCSharp.Assets.Scripts.Player
@@ -19,6 +20,7 @@ namespace AssemblyCSharp.Assets.Scripts.Player
         [SerializeField] private TMP_Text _healthBar;
         [SerializeField] private GameObject _gameOverScreen;
         [SerializeField] private GameObject _dialogPanel;
+        [SerializeField] private Image _healthBarImage;
         //[SerializeField] private GameObject _bossFightPanel;
 
 
@@ -41,6 +43,7 @@ namespace AssemblyCSharp.Assets.Scripts.Player
         {
 
             _hp = HP;
+            _healthBarImage.fillAmount = (float)_hp / _player.HealthDefault;
             if (_hp > 0)
             {
                 if (_healthBar != null)
@@ -81,11 +84,6 @@ namespace AssemblyCSharp.Assets.Scripts.Player
                 _gameOverScreen.SetActive(true);
 
             }
-        }
-
-        private void Start()
-        {
-            
         }
 
         private void CheckPlayerStats()
