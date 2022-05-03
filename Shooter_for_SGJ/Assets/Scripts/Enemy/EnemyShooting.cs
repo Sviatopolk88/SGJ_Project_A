@@ -12,8 +12,4 @@ public class EnemyShooting : EnemyBase
         RunSpeed = 5f;
     }
 
-    void Update()
-    {
-
-    }
 }

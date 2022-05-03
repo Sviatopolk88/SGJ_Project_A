@@ -66,8 +66,8 @@ public class Detector : MonoBehaviour, IDetector
         if (_timerAttack >= SpeedAttack)
         {
             var bullet = Instantiate(_bulletPrefab);
-            bullet.transform.position = _navMeshAgent.transform.TransformPoint(Vector3.forward * 1.5f);
-            bullet.transform.rotation = _navMeshAgent.transform.rotation;
+            bullet.transform.position = _enemy.transform.TransformPoint(Vector3.forward * 1.5f);
+            bullet.transform.rotation = _enemy.transform.rotation;
             _timerAttack = 0f;
         }
     }
