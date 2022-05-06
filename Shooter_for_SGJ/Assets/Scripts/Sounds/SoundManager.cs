@@ -24,6 +24,10 @@ public class SoundManager : MonoBehaviour
             _audioSource.clip = _figthMusic[Random.Range(0, _figthMusic.Length)];
             _audioSource.Play();
         }
+        else
+        {
+            StartIdle();
+        }
     }
 
     public void StartHorror()
@@ -43,10 +47,6 @@ public class SoundManager : MonoBehaviour
         if (!FindObjectOfType<Arena>().IsFighting)
         {
             _audioSource.Stop();
-        }
-        else
-        {
-            
         }
             
     }

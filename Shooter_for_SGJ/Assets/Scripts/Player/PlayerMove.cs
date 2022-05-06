@@ -60,7 +60,7 @@ public class PlayerMove : MonoBehaviour
             _charController.Move(_velocity * Time.deltaTime);
         }
     }
-
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Detector _detector))
@@ -73,7 +73,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.TryGetComponent(out Detector _detector))
         {
-            _audioManager.GetComponent<SoundManager>().StopPlayer();
+            _audioManager.GetComponent<SoundManager>().StartIdle();
         }
     }
+    */
 }

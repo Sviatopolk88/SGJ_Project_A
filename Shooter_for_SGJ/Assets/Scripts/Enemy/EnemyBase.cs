@@ -22,6 +22,7 @@ public class EnemyBase : MonoBehaviour, IHittable
         Debug.Log(this.Health);
         if (isDead)
         {
+            /*
             if (_audioSource != null)
             {
                 _audioSource.StopPlayer();
@@ -31,7 +32,7 @@ public class EnemyBase : MonoBehaviour, IHittable
                 _audioSource = GameObject.Find("AudioManager").GetComponent<SoundManager>();
                 _audioSource.StopPlayer();
             }
-            
+            */
             Destroy(gameObject); // Добавить анимацию смерти
         }
 
